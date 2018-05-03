@@ -26,7 +26,7 @@ void Graph::graph_init()
     noecho();                    //关闭回显,输入的数据被缓存到buf中  
     curs_set(0);                //把光标置为不可见  
     keypad(stdscr, true);        //使用用户终端的键盘上的小键盘  
-    //srand(time(0));                //设置随机数种子  
+    srand(time(0));                //设置随机数种子  
 }
 
 
