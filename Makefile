@@ -28,7 +28,7 @@ endif
 
 HED+=
 
-SRC+= src/get_input.cpp src/main.cpp src/show_graph.cpp src/snake_operation.cpp
+SRC+= src/get_input.cpp src/main.cpp src/show_graph.cpp src/snake_operation.cpp src/test.cpp
 
 
 ifeq ($(LIB_NAME),)
