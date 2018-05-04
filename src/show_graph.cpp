@@ -26,7 +26,7 @@ void Graph::graph_init()
     noecho();                    //关闭回显,输入的数据被缓存到buf中  
     curs_set(0);                //把光标置为不可见  
     keypad(stdscr, true);        //使用用户终端的键盘上的小键盘  
-    srand(time(0));                //设置随机数种子  
+    
 }
 
 
@@ -39,6 +39,15 @@ void Graph::graph_init()
 //     direction_now=EAST;
 // }
 
+
+
+/**                                 (0,0)         (0,H+1)
+ *                      
+ * 
+ *                                  (V+1,0)       (V+1,H+1)
+ * 图像的Y坐标在前，因为curses库中的move定位是以(竖坐标，横坐标)来计算的．
+ * */
+
 void Graph::game_gragh()
 {
     int i=0;
@@ -46,8 +55,14 @@ void Graph::game_gragh()
     memset(&boundary[1],'-',H);
     boundary[0]='|';
     boundary[H+1]='|';
-    //printf("%s\r\n",boundary);
-    mvaddstr(0,0,boundary);
+    printf("bodu=");
+    printf("%s\r\n",boundary);
+    for(i=0;i<H+2;i++)
+    {
+        move(0,i);
+        addch(boundary[i]);
+    }
+    //mvaddstr(0,0,boundary);
     for(i=1;i<V+1;i++)
     {
         move(i,0);
@@ -58,32 +73,39 @@ void Graph::game_gragh()
         move(i,H+1);
         addch('|');
     }
-    mvaddstr(V+1,0,boundary);
+    for(i=0;i<H+2;i++)
+    {
+        move(V+1,i);
+        addch(boundary[i]);
+    }
+    //mvaddstr(V+1,0,boundary);
+     move(0,8);
+     addch('5');
     show();
 }
 
 
-void Graph::show_snake()
-{
-    u32 i=0,j=0;
+// void Graph::show_snake()
+// {
+//     u32 i=0,j=0;
     
-    for(i=0;i<snake_len;i++)
-    {
-        move(GET_V(snake_track[i]),GET_H(snake_track[i]));
-        addch('-');
-    }
-    move(GET_V(food_location),GET_H(food_location));
-    addch('*');
-    if(0!=delete_node[0])
-    {
-        move(GET_V(delete_node[0]),GET_H(delete_node[0]));
-        addch(' ');
-    }
+//     for(i=0;i<snake_len;i++)
+//     {
+//         move(GET_V(snake_track[i]),GET_H(snake_track[i]));
+//         addch('-');
+//     }
+//     move(GET_V(food_location),GET_H(food_location));
+//     addch('*');
+//     if(0!=delete_node[0])
+//     {
+//         move(GET_V(delete_node[0]),GET_H(delete_node[0]));
+//         addch(' ');
+//     }
 
-    move(GET_V(head_location),GET_H(head_location));
-    addch('>');
-    show();
-}
+//     move(GET_V(head_location),GET_H(head_location));
+//     addch('>');
+//     show();
+// }
 
 
 void Graph::game_faile_gragh()

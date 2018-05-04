@@ -1,17 +1,24 @@
 #include "get_input.h"
 #include <unistd.h>
 #include <curses.h>
+#include <sys/time.h>
+#include <signal.h>
 
 
-userInput Input;
 
-
-userInput::userInput()
+/**speed :level 1~9
+ * 
+ * */
+userInput::userInput(char speed)
 {
-    Q_BUF_MAX_LEN=3;
+    //Q_BUF_MAX_LEN=3;
     Q=new QUEUE;
     Q->q_buf=new s8[Q_BUF_MAX_LEN];
     memset(Q->q_buf,0,Q_BUF_MAX_LEN);
+    if(speed<1) speed=1;
+    if(speed>10) speed=10;
+    wait_us_default=(11-speed)*100000;
+    wait_us=wait_us_default;
 }
 
 userInput::~userInput()
@@ -67,6 +74,7 @@ u32 userInput::get_q_len()  //获取长度
 
 s8 userInput::getUserInput()
 {
+    usleep(wait_us);
     return q_pop();
 }
 
@@ -81,12 +89,22 @@ void* userInput::getInputCallback(void *arg)
     s8 ch=0;
     while(1)
     {
-        if(ch=getch())
+        ch=getch();
+        if(ch>0)
         {
             input->saveUserInput(ch);
         }
     }
     return NULL;
+}
+
+
+void time_callback(int sig)
+{
+    if(SIGVTALRM==sig)
+    {
+
+    }
 }
 
 
@@ -97,25 +115,7 @@ void userInput::getInputInit()
     {
         cout<<"create thread failed!!"<<endl;
     }
+    signal(SIGVTALRM,time_callback);
 }
 
 
-
-#ifdef INPUT_DEBUG
-int main()                       //已经测试过
-{
-    s8 ch=0;
-    initscr();
-    Input.getInputInit();
-    while(1)
-    {
-        ch=Input.getUserInput();
-        if(ch!=-1)
-        {
-            cout<<ch+1<<endl;
-        }
-        sleep(1);
-    }
-}
-
-#endif
