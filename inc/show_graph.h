@@ -6,11 +6,7 @@
 
 
 
-//#define GRAPH_DEBUG
-
-#define MERGE(v,h)  ((u16)((v<<8)|h))
-#define GET_V(x)    ((u8)((u16)x>>8))
-#define GET_H(x)    ((u8)x)              
+            
 
 
 /**显示类
@@ -20,7 +16,7 @@
 **/
 
 
-class Graph:public Snake_data
+class Graph
 {
     public:
         Graph(){};
@@ -31,10 +27,9 @@ class Graph:public Snake_data
         void game_faile_gragh();        //游戏死亡界面
         void start_graph(){initscr();}  //使能显示界面
         void stop_graph(){endwin();}    //失能界面
-        void show_snake();
+        void show_snake(snake_data_t* snake_data);
     private:
         void clean_gragh();              //清除界面信息
-        //void snake_init();               //初始化蛇的出现位置
         void show(void){refresh();}      //刷一遍界面
 };
 

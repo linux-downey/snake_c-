@@ -3,7 +3,8 @@
 
 #include "common.h"
 
-//#define INPUT_DEBUG
+#define Q_BUF_MAX_LEN 3
+
 
 class userInput
 {
@@ -14,7 +15,7 @@ class userInput
     }QUEUE;
     static void* getInputCallback(void *arg);
     public:
-        userInput();
+        userInput(char speed=1);
         ~userInput();
         void getInputInit();
         s8 getUserInput();
@@ -28,7 +29,9 @@ class userInput
         s8 q_push(s8 data);
         s8 q_pop();
         u32 get_q_len();
-        u32 Q_BUF_MAX_LEN;
+        u32 wait_us;                         //执行时的等待，每移动一次的间隔时间
+        u32 wait_us_default;                //默认的间隔时间
+        const u32 speed_up_wait_us=100;     //加速时的间隔时间
 };
 
 #endif
