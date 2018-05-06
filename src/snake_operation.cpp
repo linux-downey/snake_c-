@@ -2,88 +2,169 @@
 
 
 
-/**初始化蛇的位置
+/**
  * */
 void Snake_opt::snake_init()
 {
-    srand(time(0));                //设置随机数种子  
-    snake_data.head_location=MERGE(V/2,3);      //竖坐标从中点处开始
-    snake_data.snake_track[1]=MERGE(V/2,1);    
-    snake_data.snake_track[0]=MERGE(V/2,2);    //初始化长度为3
-    snake_data.snake_len=2;
+    srand(time(0));               
+    snake_data.head_location=MERGE(V/2,4);      //
+	snake_data.snake_track[2]=MERGE(V/2,1);    
+    snake_data.snake_track[1]=MERGE(V/2,2);    
+    snake_data.snake_track[0]=MERGE(V/2,3);    //
+
+	
+    snake_data.snake_len=3;
     snake_data.direction_now=EAST;
-    generate_food();                        //生成食物
+    generate_food();                        //
 }
 
 
 //移动原理示例：如果蛇身体长４，head-a[0]-a[1]-a[2]-a[3],移动后　新head-a[0](原head)-a[1](原a[0])-a[2](原a[1])-a[3](原a[2]),删除原a[3]，即完成移动
 
-void Snake_opt::turnEast()  
+
+void Snake_opt::moving(snake_direction_t snake_direction)
 {
-
-}
-
-void Snake_opt::turnSouth()
-{
-
-}
-
-void Snake_opt::turnWest()                      //蛇的移动子处理函数
-{
-
-}
-
-void Snake_opt::turnNorth()
-{
+	u32 v=0,h=0;
+    u16 i=0;
+    u16 temp[V*H]={0};
+    u16 head_temp=0;
+    head_temp=snake_data.head_location;    	//get head node location
     
+    v=GET_V(snake_data.head_location);
+    h=GET_H(snake_data.head_location);
+ 	switch(snake_direction)
+ 	{
+ 		case EAST:
+		h+=1;
+		//printf("east\r\n");
+		break;
+		case WEST:
+		h-=1;
+		//printf("west\r\n");
+		break;
+		case SOUTH:
+		v+=1;
+		//printf("south\r\n");
+		break;
+		case NORTH:
+		v-=1;
+		//printf("north\r\n");
+		break;
+		default:break;
+ 	}
+    snake_data.head_location=(MERGE(v,h));     //
+
+    memcpy(temp,snake_data.snake_track,snake_data.snake_len*sizeof(u16));     //
+    
+    snake_data.delete_node[0]=snake_data.snake_track[snake_data.snake_len-1];   //
+
+    for(i=0;i<snake_data.snake_len-1;i++)           //
+    {
+        snake_data.snake_track[i+1]=temp[i];
+    }
+    snake_data.snake_track[0]=head_temp;   //
+	snake_data.direction_now=snake_direction;
 }
 
-void Snake_opt::generate_food()                                 //生成食物
-{
 
+
+
+void Snake_opt::generate_food()                                 
+{
+	u8 food_V=0,food_H=0;
+    u8 food_is_in_body_flag=0;
+    u32 i=0;
+    while(1)
+    {
+        food_is_in_body_flag=0;
+        food_V=rand()%V+1;
+        food_H=rand()%H+1;
+        snake_data.food_location=MERGE(food_V,food_H);
+        for(i=0;i<snake_data.snake_len;i++)         
+        {
+            if(snake_data.food_location==snake_data.snake_track[i])   //
+            {
+                food_is_in_body_flag=1;
+                break;
+            }
+        }
+        if(!food_is_in_body_flag)    //
+        {
+            return;
+        }
+    }
 }
 
 
 void Snake_opt::eat_food_operation()
 {
-
+	snake_data.snake_len+=1;
+	snake_data.snake_track[snake_data.snake_len-1]=snake_data.delete_node[0];
+    snake_data.delete_node[0]=0;
 }
 
 /**
- *  返回１表示吃到食物，０表示未吃到
+ *  
  * */
-s8 Snake_opt::eating_food()                                 //检测吃到食物
+s8 Snake_opt::eating_food()                                 //
 {
+	if(snake_data.head_location==snake_data.food_location)	   //
+		{
+			return 1;
+		}
+
     return 0;
 }
 
 /**
- *  返回１表示吃到自己，０表示未吃到
+ *  
  * */
-s8 Snake_opt::check_eat_self()                                //检测是否吃到自己
+s8 Snake_opt::check_eat_self()                                //
 {
+	int i=0;
+    for(i=0;i<snake_data.snake_len;i++)
+    {
+        if(snake_data.head_location==snake_data.snake_track[i])
+        {
+            return 1;
+        }
+    }
     return 0;
 }
 
 /**
- *  返回１表示撞墙，０表示未撞墙
+ *  
  * */
 s8 Snake_opt::check_hit_wall()
 {
+	//u16 head_temp=0;
+	u8 v,h;
+	//head_temp=snake_data.head_location;
+	v=GET_V(snake_data.head_location);
+    h=GET_H(snake_data.head_location);
+	if((0==v)||(v>=V+1)||(0==h)||(h>=H+1))
+	{
+		return 1;
+	}
+	
     return 0;
 }
 
 /**
- *  通关
+ *  
  * 
  * */
 s8 Snake_opt::congratulations()
 {
+	if(V*H==snake_data.snake_len)
+	{
+		return 1;
+	}
     return 0;
 }
 
 
-/**获取键值并且转换成移动的方向
+/**
  * 
  * */
 snake_direction_t Snake_opt::convert_input_key(s8 input_key)
@@ -92,41 +173,38 @@ snake_direction_t Snake_opt::convert_input_key(s8 input_key)
     {
         case 'w':
         case 'W':
-        case 0x26: 
         //printf("up\r\n");
         return NORTH;
         break;
         case 's':
         case 'S':
-        case 0x28:
         //printf("down\r\n");
         return SOUTH;
         break;
         case 'a':
         case 'A':
-        case 0x25:
         //printf("left\r\n");
         return WEST;
         break;
         case 'd':
         case 'D':
-        case 0x27:
         //printf("right\r\n");
         return EAST;
         break;
+		default:break;
     }
-    return KEEP;
+    return KEEP;                    //If no input or other undefined key value,return KEEP.
 }
 
 
-/**返回显示所需要参数结构体
+/**
  * 
  * 
  * */
 snake_data_t* Snake_opt::snake_control(s8 input_key)
 {
     snake_direction_t dire;
-    dire = convert_input_key(input_key);
+    dire = convert_input_key(input_key);       /*Conver ch to move direction!! */
     snake_move(dire);
     if(eating_food())
     {
@@ -145,44 +223,67 @@ snake_data_t* Snake_opt::snake_control(s8 input_key)
     {
         return (snake_data_t*)CONGRAT;
     }
+    
     return &snake_data;
 }
 
 
-/*过滤掉相反方向和方向不动的移动*/
+
 void Snake_opt::snake_move(snake_direction_t snake_direction)
 {
+	
     switch(snake_direction)
     {
+    
         case KEEP:
-        snake_move(snake_data.direction_now);
+        moving(snake_data.direction_now);
         break;
         case EAST:
-        if(WEST!=snake_data.direction_now)
+        if(WEST==snake_data.direction_now)
         {
-            turnEast();
+            moving(WEST);
         }
+		else
+		{
+			moving(EAST);
+		}
         break;
         case SOUTH:
-        if(NORTH!=snake_data.direction_now)
+        if(NORTH==snake_data.direction_now)
         {
-            turnSouth();
+            moving(NORTH);
         }
+		else
+		{
+			moving(SOUTH);
+		}
         break;
         case WEST:
-        if(EAST!=snake_data.direction_now)
+        if(EAST==snake_data.direction_now)
         {
-            turnWest();
+            moving(EAST);
         }
+		else
+		{
+			moving(WEST);
+		}
         break;
         case NORTH:
-        if(SOUTH!=snake_data.direction_now)
+        if(SOUTH==snake_data.direction_now)
         {
-            turnNorth();
+            moving(SOUTH);
         }
+		else
+		{
+			moving(NORTH);
+		}
         break;
-        default:break;
+        default:
+			break;
     }
+ 
+	
+
 }
 
 

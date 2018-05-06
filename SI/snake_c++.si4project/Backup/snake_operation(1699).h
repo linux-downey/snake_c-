@@ -18,7 +18,10 @@ class Snake_opt
         s8 check_eat_self();                                //检测是否吃到自己
         s8 check_hit_wall();                                //检测是否撞墙
     private:
-		void moving(snake_direction_t snake_direction);
+        void turnEast();
+        void turnSouth();
+        void turnWest();         //蛇的移动子处理函数
+        void turnNorth();
         void eat_food_operation();
         s8 congratulations();
         snake_direction_t convert_input_key(s8 input_key);

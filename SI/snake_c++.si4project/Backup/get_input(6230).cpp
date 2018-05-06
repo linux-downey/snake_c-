@@ -17,7 +17,7 @@ userInput::userInput(char speed)
     memset(Q->q_buf,0,Q_BUF_MAX_LEN);
     if(speed<1) speed=1;
     if(speed>10) speed=10;
-    wait_us_default=(1000-speed*97)*1000;
+    wait_us_default=(11-speed)*100000;
     wait_us=wait_us_default;
 }
 
@@ -99,7 +99,6 @@ void* userInput::getInputCallback(void *arg)
 }
 
 
-/*
 void time_callback(int sig)
 {
     if(SIGVTALRM==sig)
@@ -107,7 +106,7 @@ void time_callback(int sig)
 
     }
 }
-*/
+
 
 void userInput::getInputInit()
 {
@@ -116,7 +115,7 @@ void userInput::getInputInit()
     {
         cout<<"create thread failed!!"<<endl;
     }
-    //signal(SIGVTALRM,time_callback);
+    signal(SIGVTALRM,time_callback);
 }
 
 

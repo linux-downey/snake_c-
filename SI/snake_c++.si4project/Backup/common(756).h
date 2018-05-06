@@ -21,17 +21,14 @@ using std::cin;
 using std::endl;
 
 //#define TEST_INPUT
-//#define DEBUG
-//#define TEST_GRAGH
+#define DEBUG
+#define TEST_GRAGH
 //#define TEST_SNAKE_OPERATION
 
 
 #define MERGE(v,h)  ((u16)((v<<8)|h))
 #define GET_V(x)    ((u8)((u16)x>>8))
-#define GET_H(x)    ((u8)x) 
-
-
-
+#define GET_H(x)    ((u8)x)  
 
 #define V 20
 #define H 50
@@ -53,6 +50,14 @@ typedef enum
 typedef struct
 {
     public:
+        
+        // Snake_data(){
+        //     snake_track=new u16[V*H];
+        // }
+        // ~Snake_data()
+        // {
+        //     delete []snake_track;
+        // }
         u16 snake_track[V*H];
         u16 head_location;
         u16 food_location;

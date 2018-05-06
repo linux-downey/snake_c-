@@ -1,0 +1,27 @@
+---- printf Matches (26 in 3 files) ----
+main in main.cpp (src) : 			printf("game over!!!\r\n");
+main in main.cpp (src) : 		//printf("input is %c\r\n",ch);
+Graph::game_gragh in show_graph.cpp (src) :     //printf("%s\r\n",boundary);
+Graph::show_snake in show_graph.cpp (src) : 		 printf("s%d=(%d,%d)\r\n",i,snake_data->snake_track[i]>>8,(u8)snake_data->snake_track[i]);
+Snake_opt::snake_init in snake_operation.cpp (src) : 	//printf("sssss1=(%d,%d)\r\n",snake_data.snake_track[0]>>8,(u8)snake_data.snake_track[0]);
+Snake_opt::snake_init in snake_operation.cpp (src) : 	//printf("sssss2=(%d,%d)\r\n",snake_data.snake_track[1]>>8,(u8)snake_data.snake_track[1]);
+Snake_opt::snake_init in snake_operation.cpp (src) : 	//printf("sssss3=(%d,%d)\r\n",snake_data.snake_track[2]>>8,(u8)snake_data.snake_track[2]);
+Snake_opt::moving in snake_operation.cpp (src) : 		//printf("east\r\n");
+Snake_opt::moving in snake_operation.cpp (src) : 		//printf("west\r\n");
+Snake_opt::moving in snake_operation.cpp (src) : 		//printf("south\r\n");
+Snake_opt::moving in snake_operation.cpp (src) : 		//printf("north\r\n");
+Snake_opt::moving in snake_operation.cpp (src) : 	//printf("s1=(%d,%d)\r\n",snake_data.snake_track[0]>>8,(u8)snake_data.snake_track[0]);
+Snake_opt::moving in snake_operation.cpp (src) : 	//printf("s2=(%d,%d)\r\n",snake_data.snake_track[1]>>8,(u8)snake_data.snake_track[1]);
+Snake_opt::moving in snake_operation.cpp (src) : 	//printf("s3=(%d,%d)\r\n",snake_data.snake_track[2]>>8,(u8)snake_data.snake_track[2]);
+Snake_opt::moving in snake_operation.cpp (src) : 	//printf("t1=(%d,%d)\r\n",temp[0]>>8,(u8)temp[0]);
+Snake_opt::moving in snake_operation.cpp (src) : 	//printf("t2=(%d,%d)\r\n",temp[1]>>8,(u8)temp[1]);
+Snake_opt::moving in snake_operation.cpp (src) : 	//printf("t3=(%d,%d)\r\n",temp[2]>>8,(u8)temp[2]);
+Snake_opt::moving in snake_operation.cpp (src) : 	//printf("a=%x",snake_data.snake_track[snake_data.snake_len-1]>>8);
+Snake_opt::moving in snake_operation.cpp (src) : 	//printf("b=%x\r\n",snake_data.snake_track[snake_data.snake_len-1]);
+Snake_opt::moving in snake_operation.cpp (src) :     //printf("l=%d\r\n",snake_data.snake_len);
+Snake_opt::moving in snake_operation.cpp (src) :     //printf("a=%x",snake_data.delete_node[0]>>8);
+Snake_opt::moving in snake_operation.cpp (src) : 	//printf("b=%x\r\n",snake_data.delete_node[0]);
+Snake_opt::convert_input_key in snake_operation.cpp (src) :         //printf("up\r\n");
+Snake_opt::convert_input_key in snake_operation.cpp (src) :         //printf("down\r\n");
+Snake_opt::convert_input_key in snake_operation.cpp (src) :         //printf("left\r\n");
+Snake_opt::convert_input_key in snake_operation.cpp (src) :         //printf("right\r\n");
