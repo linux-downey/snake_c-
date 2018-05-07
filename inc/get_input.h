@@ -4,6 +4,8 @@
 #include "common.h"
 
 #define Q_BUF_MAX_LEN 3
+#define RESTART  1
+#define QUIT     2
 
 
 class userInput

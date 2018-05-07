@@ -11,13 +11,14 @@ class Snake_opt
 {
     public:
         snake_data_t* snake_control(s8 input_key);
-        void snake_move(snake_direction_t snake_direction);   //蛇的移动,做一层方向过滤
-        void snake_init();                                    //最开始蛇的形状
-        void generate_food();                                 //生成食物
-        s8 eating_food();                                 //检测吃到食物
-        s8 check_eat_self();                                //检测是否吃到自己
-        s8 check_hit_wall();                                //检测是否撞墙
+		snake_data_t* get_snake_data();
+		void snake_init();
     private:
+    	void snake_move(snake_direction_t snake_direction);
+        void generate_food();                                 
+        s8 eating_food();                                 
+        s8 check_eat_self();                                
+        s8 check_hit_wall();     
 		void moving(snake_direction_t snake_direction);
         void eat_food_operation();
         s8 congratulations();

@@ -9,9 +9,9 @@
             
 
 
-/**显示类
-*  显示游戏初始界面
-*  显示初始化
+/**
+*  
+*  
 *  
 **/
 
@@ -21,16 +21,21 @@ class Graph
     public:
         Graph(){};
         ~Graph(){};
-        void start_game_gragh();      //显示游戏初始化界面
-        void graph_init();             //初始化界面
-        void game_gragh();              //游戏的外框
-        void game_faile_gragh();        //游戏死亡界面
-        void start_graph(){initscr();}  //使能显示界面
-        void stop_graph(){endwin();}    //失能界面
+		void clean_gragh();              //
+        void start_game_gragh();      //
+        void graph_init();             //
+        void game_gragh();              //
+ 		void show_game_over_gragh(u32 reason);
+        void start_graph(){initscr();}  //
+        void stop_graph(){endwin();}    //
         void show_snake(snake_data_t* snake_data);
     private:
-        void clean_gragh();              //清除界面信息
-        void show(void){refresh();}      //刷一遍界面
+        
+        void show(void){refresh();}      //
+ 		void reselect();
+		void game_over_congratulations();
+		void game_over_eat_self();
+		 void game_over_hit_wall();
 };
 
 

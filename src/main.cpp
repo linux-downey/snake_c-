@@ -4,14 +4,13 @@
 #include <unistd.h>
 #include <pthread.h>
 
-
 #include "common.h"
 #include "get_input.h"
 #include "show_graph.h"                      
 #include "snake_operation.h"
 
 #ifndef DEBUG
-userInput Input(10);
+userInput Input(8);
 Graph snake_graph;
 Snake_opt snake_opt;
 int main()
@@ -27,12 +26,20 @@ int main()
     while(1)
     {
     	snake_data=snake_opt.snake_control(ch);		/*Move the snake according to input char */
-		if(snake_data<0)
+		if((s32)snake_data<0)
 		{
-			printf("game over!!!\r\n");
+			snake_graph.clean_gragh();
+			snake_graph.show_game_over_gragh((s32)snake_data );
+			ch=Input.getUserInput();
+			/*switch(ch)
+			{}*/
+			while(1);
 		}
-        snake_graph.show_snake(snake_data);
-        ch=Input.getUserInput();					/*Get input*/        
+		else
+		{
+			snake_graph.show_snake(snake_data);
+        	ch=Input.getUserInput();					/*Get input*/      
+		}
     }
 }
 
@@ -40,50 +47,6 @@ int main()
 
 
 
-#ifdef TEST_INPUT
-userInput Input(2);
 
-int main()                       
-{
-    s8 ch=0;
-    initscr();
-    Input.getInputInit();
-    while(1)
-    {
-        ch=Input.getUserInput();
-        if(ch!=-1)
-        {
-            cout<<ch+1<<endl;
-        }
-        //sleep(1);
-    }
-}
-#endif
-
-#ifdef TEST_GRAGH
-Graph snake;
-int main()
-{
-    snake.graph_init();
-    snake.start_graph();
-    snake.game_gragh();
-    sleep(10);
-    snake.stop_graph();
-}
-#endif
-
-#ifdef TEST_SNAKE_OPERATION
-Graph snake_graph; 
-userInput Input(3);
-
-int main()
-{
-    snake.graph_init();
-    snake.start_graph();
-    snake.game_gragh();
-
-    return 0;
-}
-#endif
 
 

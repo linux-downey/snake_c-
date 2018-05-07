@@ -1,10 +1,19 @@
+#include <string.h>
 #include "show_graph.h"
 
 
 
 void Graph::clean_gragh()
 {
-    
+    int i=1,j=1;
+    for(;i<V+2;i++)
+    {
+        for(;j<H+2;j++)
+        {
+            move(i,j);
+            addch(' ');
+        }
+    }
 }
 
 void Graph::start_game_gragh()
@@ -36,7 +45,7 @@ void Graph::graph_init()
  *                      
  * 
  *                                  (V+1,0)       (V+1,H+1)
- * 图像的Y坐标在前，因为curses库中的move定位是以(竖坐标，横坐标)来计算的．
+ * 
  * */
  
 /*
@@ -118,24 +127,59 @@ void Graph::game_gragh()
  }
 
 
-void Graph::game_faile_gragh()
+ void Graph::reselect()
 {
-    
+	const char *str_restart="Enter 1 for restart!";	
+	const char *str_quit="Enter 2 for quit!!";
+	mvaddstr(V/2+1,H/2-strlen(str_restart)/2,str_restart);
+	mvaddstr(V/2+2,H/2-strlen(str_restart)/2,str_quit);       //keep alignment
+}
+
+ void Graph::game_over_hit_wall()
+ {
+	 const char* str="HIT THE WALL!!!!!";
+	 mvaddstr(V/2-2,H/2-strlen(str)/2,str);
+	 reselect();
+ }
+
+
+void Graph::game_over_eat_self()
+{
+     const char* str="EAT SELF!!!!!";
+	 mvaddstr(V/2-2,H/2-strlen(str)/2,str);
+	 reselect();
+}
+
+void Graph::game_over_congratulations()
+{
+    const char* str="NIUBI NIUBI NIUBI !!!!!";
+	mvaddstr(V/2-2,H/2-strlen(str)/2,str);
+	reselect();
+}
+
+
+
+
+void Graph::show_game_over_gragh(u32 reason)
+{
+	switch(reason)
+	{
+		case EAT_SELF:
+			game_over_eat_self();
+		break;
+		case HIT_WALL:
+			game_over_hit_wall();
+		break;
+		case CONGRAT:
+			game_over_congratulations();
+		break;
+		default:
+		break;
+	}
+	show();
 }
 
 
 
 
 
-#ifdef GRAPH_DEBUG
-Graph snake;
-int main()
-{
-    snake.graph_init();
-    snake.start_graph();
-    snake.game_gragh();
-    sleep(10);
-    snake.stop_graph();
-}
-
-#endif

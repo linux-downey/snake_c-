@@ -217,6 +217,7 @@ snake_data_t* Snake_opt::snake_control(s8 input_key)
     }
     if(check_hit_wall())
     {
+    	//printf("hit wall\r\n");
         return (snake_data_t*)HIT_WALL;
     }
     if(congratulations())
@@ -229,6 +230,16 @@ snake_data_t* Snake_opt::snake_control(s8 input_key)
 
 
 
+
+
+
+snake_data_t * Snake_opt::get_snake_data()
+{
+	return &snake_data;
+}
+
+
+
 void Snake_opt::snake_move(snake_direction_t snake_direction)
 {
 	
@@ -236,7 +247,7 @@ void Snake_opt::snake_move(snake_direction_t snake_direction)
     {
     
         case KEEP:
-        moving(snake_data.direction_now);
+        moving(snake_data.direction_now);                         
         break;
         case EAST:
         if(WEST==snake_data.direction_now)
