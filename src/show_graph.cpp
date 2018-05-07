@@ -40,7 +40,6 @@ void Graph::graph_init()
 
 
 
-
 /**                                 (0,0)         (0,H+1)
  *                      
  * 
@@ -126,6 +125,12 @@ void Graph::game_gragh()
      
  }
 
+
+
+void Graph::show_string(s32 y,s32 x,char* str)
+ {
+ 	mvaddstr(y,x,str);
+ }
 
  void Graph::reselect()
 {

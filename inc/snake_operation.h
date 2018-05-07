@@ -13,6 +13,7 @@ class Snake_opt
         snake_data_t* snake_control(s8 input_key);
 		snake_data_t* get_snake_data();
 		void snake_init();
+		void restart();
     private:
     	void snake_move(snake_direction_t snake_direction);
         void generate_food();                                 

@@ -8,6 +8,9 @@
 #include <unistd.h>
 
 
+#define RESTART  '1'
+#define QUIT     '2'
+
 
 using u8  = unsigned char;
 using u16 = unsigned short;

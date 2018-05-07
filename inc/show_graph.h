@@ -22,6 +22,7 @@ class Graph
         Graph(){};
         ~Graph(){};
 		void clean_gragh();              //
+		void show_string(s32 y,s32 x,char* str);
         void start_game_gragh();      //
         void graph_init();             //
         void game_gragh();              //

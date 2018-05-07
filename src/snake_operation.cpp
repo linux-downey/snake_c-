@@ -11,15 +11,21 @@ void Snake_opt::snake_init()
 	snake_data.snake_track[2]=MERGE(V/2,1);    
     snake_data.snake_track[1]=MERGE(V/2,2);    
     snake_data.snake_track[0]=MERGE(V/2,3);    //
-
-	
+    
     snake_data.snake_len=3;
     snake_data.direction_now=EAST;
     generate_food();                        //
 }
 
 
-//移动原理示例：如果蛇身体长４，head-a[0]-a[1]-a[2]-a[3],移动后　新head-a[0](原head)-a[1](原a[0])-a[2](原a[1])-a[3](原a[2]),删除原a[3]，即完成移动
+void Snake_opt::restart()
+{
+	memset(&snake_data,0,sizeof(snake_data_t));
+	snake_init();
+}
+
+
+//head-a[0]-a[1]-a[2]-a[3],head-a[0](原head)-a[1](原a[0])-a[2](原a[1])-a[3](原a[2]),a[3]
 
 
 void Snake_opt::moving(snake_direction_t snake_direction)

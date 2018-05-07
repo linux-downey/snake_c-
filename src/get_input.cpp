@@ -29,12 +29,32 @@ userInput::~userInput()
 
 
 
+void userInput::select_speed()
+{
+	s8 ch=0;
+	//mvaddstr();
+	while(1)
+	{
+		ch=q_pop();
+		if(-1!=ch)
+		{
+			if(ch<1) ch=1;
+	    	if(ch>10) ch=10;
+			wait_us_default=(1000-ch*97)*1000;
+			break;
+		}
+	}
+	
+}
+
+
 
 
 /**************************queue operation**************************************/
 void userInput::initQueue()
 {
     
+
 }
 
 s8 userInput::q_push(s8 data)

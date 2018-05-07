@@ -4,8 +4,7 @@
 #include "common.h"
 
 #define Q_BUF_MAX_LEN 3
-#define RESTART  1
-#define QUIT     2
+
 
 
 class userInput
@@ -22,6 +21,7 @@ class userInput
         void getInputInit();
         s8 getUserInput();
         s32 error_code;
+		void select_speed();
     private:
         QUEUE *Q;
         pthread_t get_user_input_thread;

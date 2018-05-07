@@ -10,7 +10,7 @@
 #include "snake_operation.h"
 
 #ifndef DEBUG
-userInput Input(8);
+userInput Input;
 Graph snake_graph;
 Snake_opt snake_opt;
 int main()
@@ -19,7 +19,7 @@ int main()
     snake_data_t *snake_data=NULL;
 	snake_graph.start_graph();						/*Enable gragp display*/
     snake_graph.graph_init();                       /*Graph param init */
-    snake_graph.game_gragh();						/*Show game gragp*/
+    snake_graph.game_gragh();						/*Show game gragh*/
     Input.getInputInit();							/*Input init*/
     snake_opt.snake_init();							/*Snake init*/
 	
@@ -28,12 +28,24 @@ int main()
     	snake_data=snake_opt.snake_control(ch);		/*Move the snake according to input char */
 		if((s32)snake_data<0)
 		{
-			snake_graph.clean_gragh();
-			snake_graph.show_game_over_gragh((s32)snake_data );
-			ch=Input.getUserInput();
-			/*switch(ch)
-			{}*/
-			while(1);
+			while(1)
+			{
+				snake_graph.clean_gragh();
+				snake_graph.show_game_over_gragh((s32)snake_data );
+				ch=Input.getUserInput();
+				if(RESTART==ch)
+				{
+					snake_graph.clean_gragh();
+					snake_opt.restart();
+					break;
+				}
+				else if(QUIT==ch)
+				{
+					snake_graph.stop_graph();
+					return 0;
+				}
+			}
+			
 		}
 		else
 		{
