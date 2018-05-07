@@ -207,7 +207,7 @@ snake_direction_t Snake_opt::convert_input_key(s8 input_key)
  * 
  * 
  * */
-s32 Snake_opt::snake_control(s8 input_key)
+snake_data_t* Snake_opt::snake_control(s8 input_key)
 {
     snake_direction_t dire;
     dire = convert_input_key(input_key);       /*Conver ch to move direction!! */
@@ -219,19 +219,19 @@ s32 Snake_opt::snake_control(s8 input_key)
     }
     if(check_eat_self())
     {
-        return EAT_SELF;
+        return (snake_data_t*)EAT_SELF;
     }
     if(check_hit_wall())
     {
     	//printf("hit wall\r\n");
-        return HIT_WALL;
+        return (snake_data_t*)HIT_WALL;
     }
     if(congratulations())
     {
-        return CONGRAT;
+        return (snake_data_t*)CONGRAT;
     }
     
-    return 0;
+    return &snake_data;
 }
 
 

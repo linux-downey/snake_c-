@@ -10,50 +10,33 @@
 #include "snake_operation.h"
 
 #ifndef DEBUG
-userInput Input(8);
+userInput Input;
 Graph snake_graph;
 Snake_opt snake_opt;
 int main()
 {
     s8 ch=KEEP;
-	s32 ret=0;
     snake_data_t *snake_data=NULL;
 	snake_graph.start_graph();						/*Enable gragp display*/
     snake_graph.graph_init();                       /*Graph param init */
     snake_graph.game_gragh();						/*Show game gragh*/
     Input.getInputInit();							/*Input init*/
-
-	snake_graph.select_gragh();
-	Input.select_speed();
-	
-	snake_graph.clean_gragh();
-	
     snake_opt.snake_init();							/*Snake init*/
 	
     while(1)
     {
-    	ret=snake_opt.snake_control(ch);		/*Move the snake according to input char */
-		
-		if(ret<0)
+    	snake_data=snake_opt.snake_control(ch);		/*Move the snake according to input char */
+		if((s32)snake_data<0)
 		{
-			snake_graph.clean_gragh();
-			snake_graph.show_game_over_gragh(ret );
-
-			
 			while(1)
 			{
+				snake_graph.clean_gragh();
+				snake_graph.show_game_over_gragh((s32)snake_data );
 				ch=Input.getUserInput();
 				if(RESTART==ch)
 				{
 					snake_graph.clean_gragh();
-					snake_graph.select_gragh();
-					Input.select_speed();
-					snake_graph.clean_gragh();
-
-					
 					snake_opt.restart();
-
-					
 					break;
 				}
 				else if(QUIT==ch)
@@ -66,7 +49,6 @@ int main()
 		}
 		else
 		{
-			snake_data=snake_opt.get_snake_data();
 			snake_graph.show_snake(snake_data);
         	ch=Input.getUserInput();					/*Get input*/      
 		}

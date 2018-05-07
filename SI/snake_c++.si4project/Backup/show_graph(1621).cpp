@@ -6,15 +6,14 @@
 void Graph::clean_gragh()
 {
     int i=1,j=1;
-	char str[H+1]={0};
-	memset(str,' ',H);
-	
-    for(;i<V+1;i++)
+    for(;i<V+2;i++)
     {
-        show_string(i,1,str);
+        for(;j<H+2;j++)
+        {
+            move(i,j);
+            addch(' ');
+        }
     }
-	
-	//show();
 }
 
 void Graph::start_game_gragh()
@@ -79,7 +78,7 @@ void Graph::game_gragh()
 	 memset(&boundary[1],'+',H);
 	 boundary[0]='<';
 	 boundary[H+1]='<';
-	 show_string(0,0,boundary);
+	 mvaddstr(0,0,boundary);
 	 for(i=1;i<V+1;i++)
 	 {
 		 move(i,0);
@@ -90,8 +89,8 @@ void Graph::game_gragh()
 		 move(i,H+1);
 		 addch('<');
 	 }
-	 show_string(V+1,0,boundary);
-	 //show();
+	 mvaddstr(V+1,0,boundary);
+	 show();
  }
 
 
@@ -128,32 +127,23 @@ void Graph::game_gragh()
 
 
 
-void Graph::show_string(s32 y,s32 x,const char* str)
+void Graph::show_string(s32 y,s32 x,char* str)
  {
  	mvaddstr(y,x,str);
  }
-
-
-void Graph::select_gragh()
-{
-	const char* str="Please select level,1-9";
-	show_string(V/2,H/2-strlen(str)/2,str);
-	show();
-}
-
 
  void Graph::reselect()
 {
 	const char *str_restart="Enter 1 for restart!";	
 	const char *str_quit="Enter 2 for quit!!";
-	show_string(V/2+1,H/2-strlen(str_restart)/2,str_restart);
-	show_string(V/2+2,H/2-strlen(str_restart)/2,str_quit);       //keep alignment
+	mvaddstr(V/2+1,H/2-strlen(str_restart)/2,str_restart);
+	mvaddstr(V/2+2,H/2-strlen(str_restart)/2,str_quit);       //keep alignment
 }
 
  void Graph::game_over_hit_wall()
  {
 	 const char* str="HIT THE WALL!!!!!";
-	 show_string(V/2-2,H/2-strlen(str)/2,str);
+	 mvaddstr(V/2-2,H/2-strlen(str)/2,str);
 	 reselect();
  }
 
@@ -168,14 +158,14 @@ void Graph::game_over_eat_self()
 void Graph::game_over_congratulations()
 {
     const char* str="NIUBI NIUBI NIUBI !!!!!";
-	show_string(V/2-2,H/2-strlen(str)/2,str);
+	mvaddstr(V/2-2,H/2-strlen(str)/2,str);
 	reselect();
 }
 
 
 
 
-void Graph::show_game_over_gragh(s32 reason)
+void Graph::show_game_over_gragh(u32 reason)
 {
 	switch(reason)
 	{

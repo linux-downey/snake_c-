@@ -22,15 +22,14 @@ class Graph
         Graph(){};
         ~Graph(){};
 		void clean_gragh();              //
-		void show_string(s32 y,s32 x,const char* str);
+		void show_string(s32 y,s32 x,char* str);
         void start_game_gragh();      //
         void graph_init();             //
         void game_gragh();              //
- 		void show_game_over_gragh(s32 reason);
+ 		void show_game_over_gragh(u32 reason);
         void start_graph(){initscr();}  //
         void stop_graph(){endwin();}    //
         void show_snake(snake_data_t* snake_data);
-		void select_gragh();
     private:
         
         void show(void){refresh();}      //

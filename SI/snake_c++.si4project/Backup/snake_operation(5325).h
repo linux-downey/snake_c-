@@ -10,7 +10,7 @@
 class Snake_opt
 {
     public:
-        s32 snake_control(s8 input_key);
+        snake_data_t* snake_control(s8 input_key);
 		snake_data_t* get_snake_data();
 		void snake_init();
 		void restart();
