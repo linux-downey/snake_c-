@@ -1,3 +1,37 @@
+//  
+//                                  _oo8oo_
+//                                 o8888888o
+//                                 88" . "88
+//                                 (| -_- |)
+//                                 0\  =  /0
+//                               ___/'==='\___
+//                             .' \\|     |// '.
+//                            / \\|||  :  |||// \
+//                           / _||||| -:- |||||_ \
+//                          |   | \\\  -  /// |   |
+//                          | \_|  ''\---/''  |_/ |
+//                          \  .-\__  '-'  __/-.  /
+//                        ___'. .'  /--.--\  '. .'___
+//                     ."" '<  '.___\_<|>_/___.'  >' "".
+//                    | | :  `- \`.:`\ _ /`:.`/ -`  : | |
+//                    \  \ `-.   \_ __\ /__ _/   .-` /  /
+//                =====`-.____`.___ \_____/ ___.`____.-`=====
+//                                  `=---=`
+//  
+//  
+//       ~~~~~~~Powered by https://github.com/ottomao/bugfreejs~~~~~~~
+// 
+//                          佛祖保佑         永无bug
+//   
+
+/**@file get_input.cpp
+ * @brief User input handler.
+ * @author downey
+ * @date 2018-05-08
+ * 
+ * */
+
+
 #include "get_input.h"
 #include <unistd.h>
 #include <curses.h>
@@ -11,7 +45,6 @@
  * */
 userInput::userInput(char speed)
 {
-    //Q_BUF_MAX_LEN=3;
     Q=new QUEUE;
     Q->q_buf=new s8[Q_BUF_MAX_LEN];
     memset(Q->q_buf,0,Q_BUF_MAX_LEN);
